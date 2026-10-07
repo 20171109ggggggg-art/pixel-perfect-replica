@@ -1,21 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router";
 import { Radar, Mail, CalendarX } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Flight Price Notifier — 機票降價通知" },
-      { name: "description", content: "設定航線與目標價，機票降價就通知你。Set a route and a target price — we email you when the fare drops." },
-      { property: "og:title", content: "Flight Price Notifier — 機票降價通知" },
-      { property: "og:description", content: "Set a route and a target price — we email you when the fare drops." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Index,
-});
 
 function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -40,7 +28,14 @@ const features = [
   { icon: CalendarX, title: "隨時取消", en: "Cancel anytime", body: "月訂閱制，不想用隨時停，沒有綁約。" },
 ];
 
-function Index() {
+export default function Index() {
+  usePageMeta({
+    title: "Flight Price Notifier — 機票降價通知",
+    description: "設定航線與目標價，機票降價就通知你。Set a route and a target price — we email you when the fare drops.",
+    ogTitle: "Flight Price Notifier — 機票降價通知",
+    ogDescription: "Set a route and a target price — we email you when the fare drops.",
+  });
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
