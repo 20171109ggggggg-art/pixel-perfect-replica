@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router";
 import { useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -22,7 +22,7 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
       : await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (res.error) return setError(res.error.message);
-    if (res.data.session) navigate({ to: "/app" });
+    if (res.data.session) navigate("/app");
     else setInfo("請到信箱確認後再登入。Check your email to confirm.");
   }
 

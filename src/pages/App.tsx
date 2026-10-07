@@ -1,33 +1,28 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
-export const Route = createFileRoute("/app")({
-  head: () => ({
-    meta: [
-      { title: "Dashboard — Flight Price Notifier" },
-      { name: "description", content: "你的航線追蹤儀表板。" },
-      { property: "og:title", content: "Dashboard — Flight Price Notifier" },
-      { property: "og:description", content: "Your flight route tracking dashboard." },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
-  component: AppPage,
-});
-
-function AppPage() {
+export default function AppPage() {
+  usePageMeta({
+    title: "Dashboard — Flight Price Notifier",
+    description: "你的航線追蹤儀表板。",
+    ogTitle: "Dashboard — Flight Price Notifier",
+    ogDescription: "Your flight route tracking dashboard.",
+    robots: "noindex",
+  });
   const navigate = useNavigate();
   const [email, setEmail] = useState<string | null>(null);
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (!session) navigate({ to: "/signin" });
+      if (!session) navigate("/signin");
       else setEmail(session.user.email ?? "");
     });
     supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) navigate({ to: "/signin" });
+      if (!data.user) navigate("/signin");
       else setEmail(data.user.email ?? "");
     });
     return () => sub.subscription.unsubscribe();
@@ -35,7 +30,7 @@ function AppPage() {
 
   async function signOut() {
     await supabase.auth.signOut();
-    navigate({ to: "/" });
+    navigate("/");
   }
 
   return (
