@@ -10,6 +10,7 @@ import {
 const PLANS: { name: PlanName; route: string; label: string; hint: number }[] = [
   { name: "tokyo", route: "TPE-TYO", label: "台北 ✈ 東京", hint: 9325 },
   { name: "seoul", route: "TPE-SEL", label: "台北 ✈ 首爾", hint: 5989 },
+  { name: "london", route: "TPE-LON", label: "台北 ✈ 倫敦", hint: 21312 },
 ];
 
 function PlanCard({

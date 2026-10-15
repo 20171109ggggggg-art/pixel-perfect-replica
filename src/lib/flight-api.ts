@@ -4,7 +4,7 @@ const API_BASE: string =
   import.meta.env["VITE_FLIGHT_API_URL"] ??
   "https://tdzs7gh90i.execute-api.us-east-1.amazonaws.com";
 
-export type PlanName = "tokyo" | "seoul";
+export type PlanName = "tokyo" | "seoul" | "london";
 
 export interface Subscription {
   email: string;
